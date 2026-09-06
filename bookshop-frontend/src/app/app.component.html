@@ -1,0 +1,13 @@
+<nav>
+  <a routerLink="/books" routerLinkActive="active">Books</a>
+  <a routerLink="/favorites" routerLinkActive="active">Favorites</a>
+  <a routerLink="/purchases" routerLinkActive="active">Purchases</a>
+  <a *ngIf="!(isLoggedIn$ | async); else loggedIn" routerLink="/login" routerLinkActive="active">Login</a>
+  <ng-template #loggedIn>
+    <button type="button" (click)="logout()">Logout</button>
+  </ng-template>
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,25 @@
+<h2>Books</h2>
+
+<div *ngIf="isLoggedIn$ | async" class="post-book">
+  <h3>Post a new book</h3>
+  <form (ngSubmit)="postBook()">
+    <input [(ngModel)]="newBook.title" name="title" placeholder="Title" required />
+    <input [(ngModel)]="newBook.author" name="author" placeholder="Author" required />
+    <textarea [(ngModel)]="newBook.description" name="description" placeholder="Description"></textarea>
+    <input [(ngModel)]="newBook.price" name="price" type="number" placeholder="Price" required />
+    <button type="submit">Post Book</button>
+  </form>
+</div>
+
+<p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+<ul class="book-list">
+  <li *ngFor="let book of books">
+    <h3>{{ book.title }}</h3>
+    <p>Author: {{ book.author }}</p>
+    <p>{{ book.description }}</p>
+    <p>Price: {{ book.price | currency }}</p>
+    <button type="button" (click)="addToFavorites(book)">Add to Favorites</button>
+    <button type="button" (click)="buyBook(book)">Buy</button>
+  </li>
+</ul>

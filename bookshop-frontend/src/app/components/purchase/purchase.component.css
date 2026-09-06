@@ -1,0 +1,14 @@
+.purchase-list {
+  list-style: none;
+  padding: 0;
+}
+
+.purchase-list li {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: red;
+}

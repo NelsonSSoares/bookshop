@@ -1,0 +1,12 @@
+<h2>My Purchases</h2>
+
+<p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+<ul class="purchase-list">
+  <li *ngFor="let purchase of purchases">
+    <h3>{{ purchase.book.title }}</h3>
+    <p>Author: {{ purchase.book.author }}</p>
+    <p>Price: {{ purchase.book.price | currency }}</p>
+    <p>Purchased on: {{ purchase.purchaseTimestamp | date:'medium' }}</p>
+  </li>
+</ul>
