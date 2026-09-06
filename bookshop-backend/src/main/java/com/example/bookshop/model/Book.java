@@ -22,7 +22,7 @@ public class Book {
     @Column(nullable = false)
     private Double price;
 
-    @Column(length = 1000000)
+    @Column(length = 10000000)
     private String photo;
 
     public Long getId() {

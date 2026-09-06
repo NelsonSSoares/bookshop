@@ -1,0 +1,5 @@
+INSERT INTO books (title, author, description, price) VALUES ('To Kill a Mockingbird', 'Harper Lee', 'A novel about racial injustice in the American South, seen through the eyes of young Scout Finch.', 18.99);
+INSERT INTO books (title, author, description, price) VALUES ('1984', 'George Orwell', 'A dystopian social science fiction novel that explores the dangers of totalitarianism.', 15.99);
+INSERT INTO books (title, author, description, price) VALUES ('Pride and Prejudice', 'Jane Austen', 'A romantic novel examining manners, upbringing, morality, education, and marriage in Georgian Britain.', 14.99);
+INSERT INTO books (title, author, description, price) VALUES ('The Great Gatsby', 'F. Scott Fitzgerald', 'A portrait of the Jazz Age in all its decadence and excess, centered on the mysterious Jay Gatsby.', 16.99);
+INSERT INTO books (title, author, description, price) VALUES ('Moby Dick', 'Herman Melville', 'The narrative of the sailor Ishmael and the obsessive quest of Captain Ahab for the white whale.', 17.99);
