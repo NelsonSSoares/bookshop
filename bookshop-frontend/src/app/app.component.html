@@ -1,7 +1,8 @@
 <nav>
   <a routerLink="/books" routerLinkActive="active">Books</a>
-  <a routerLink="/favorites" routerLinkActive="active">Favorites</a>
-  <a routerLink="/purchases" routerLinkActive="active">Purchases</a>
+  <a *ngIf="isLoggedIn$ | async" routerLink="/create-book" routerLinkActive="active">Create Book</a>
+  <a *ngIf="isLoggedIn$ | async" routerLink="/favorites" routerLinkActive="active">Favorites</a>
+  <a *ngIf="isLoggedIn$ | async" routerLink="/purchases" routerLinkActive="active">Purchases</a>
   <a *ngIf="!(isLoggedIn$ | async); else loggedIn" routerLink="/login" routerLinkActive="active">Login</a>
   <ng-template #loggedIn>
     <button type="button" (click)="logout()">Logout</button>

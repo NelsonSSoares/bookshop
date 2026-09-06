@@ -15,12 +15,13 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Book createBook(String title, String author, String description, Double price) {
+    public Book createBook(String title, String author, String description, Double price, String photo) {
         Book newBook = new Book();
         newBook.setTitle(title);
         newBook.setAuthor(author);
         newBook.setDescription(description);
         newBook.setPrice(price);
+        newBook.setPhoto(photo);
 
         return bookRepository.save(newBook);
     }

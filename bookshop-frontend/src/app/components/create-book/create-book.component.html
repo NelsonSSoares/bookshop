@@ -1,0 +1,26 @@
+<div class="create-book-container">
+  <h2>Post a new book</h2>
+
+  <form (ngSubmit)="submitBook()">
+    <label for="title">Title</label>
+    <input id="title" [(ngModel)]="book.title" name="title" placeholder="Title" required />
+
+    <label for="author">Author</label>
+    <input id="author" [(ngModel)]="book.author" name="author" placeholder="Author" required />
+
+    <label for="description">Description</label>
+    <textarea id="description" [(ngModel)]="book.description" name="description" placeholder="Description"></textarea>
+
+    <label for="price">Price</label>
+    <input id="price" [(ngModel)]="book.price" name="price" type="number" placeholder="Price" required />
+
+    <label for="photo">Book photo</label>
+    <input id="photo" type="file" accept="image/*" (change)="onPhotoSelected($event)" />
+
+    <img *ngIf="photoPreview" [src]="photoPreview" class="photo-preview" [alt]="book.title" />
+
+    <button type="submit">Post Book</button>
+  </form>
+
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+</div>

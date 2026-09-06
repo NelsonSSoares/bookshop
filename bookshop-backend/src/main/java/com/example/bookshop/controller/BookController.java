@@ -29,11 +29,12 @@ public class BookController {
                 postBookRequest.title(),
                 postBookRequest.author(),
                 postBookRequest.description(),
-                postBookRequest.price());
+                postBookRequest.price(),
+                postBookRequest.photo());
 
         return ResponseEntity.ok(createdBook);
     }
 
-    public record PostBookRequest(String title, String author, String description, Double price) {
+    public record PostBookRequest(String title, String author, String description, Double price, String photo) {
     }
 }

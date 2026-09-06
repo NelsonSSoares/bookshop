@@ -1,14 +1,28 @@
 .purchase-list {
   list-style: none;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
 }
 
 .purchase-list li {
-  border: 1px solid #ddd;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 1.25rem;
+}
+
+.purchase-list h3 {
+  margin: 0 0 0.5rem 0;
+  color: #2d3748;
+}
+
+.purchase-list p {
+  margin: 0.25rem 0;
+  color: #4a5568;
 }
 
 .error {
-  color: red;
+  color: #d32f2f;
 }
