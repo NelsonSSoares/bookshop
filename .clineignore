@@ -1,0 +1,33 @@
+# Dependências
+node_modules/
+**/node_modules/
+
+# Artefatos de build
+build/
+target/
+dist/
+/.next/
+/out/
+
+# Logs, temporários e caches
+*.log
+*.tmp
+.cache/
+**/.cache/
+
+# Arquivos locais de IDE
+.vscode/
+.idea/
+*.iml
+
+# Variáveis de ambiente, tokens, credenciais e configs locais de MCP
+.env
+.env.*
+*.pem
+*.key
+mcp.json
+.cline/mcp_settings.json
+
+# Arquivos de clientes não higienizados
+/data/clients/
+*.customer.json

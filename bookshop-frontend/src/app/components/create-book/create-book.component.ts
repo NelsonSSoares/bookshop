@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Book } from '../../models/book.model';
 import { BookService } from '../../services/book.service';
+import { BOOK_CATEGORIES } from '../../constants/book-categories.constant';
 
 @Component({
   selector: 'app-create-book',
@@ -13,7 +14,8 @@ import { BookService } from '../../services/book.service';
   styleUrl: './create-book.component.css'
 })
 export class CreateBookComponent {
-  book: Book = { title: '', author: '', description: '', price: 0 };
+  book: Book = { title: '', author: '', description: '', price: 0, category: '' };
+  categories = BOOK_CATEGORIES;
   errorMessage = '';
   photoPreview?: string;
 

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Book } from '../../models/book.model';
 import { BookService } from '../../services/book.service';
+import { BOOK_CATEGORIES } from '../../constants/book-categories.constant';
 
 @Component({
   selector: 'app-my-publications',
@@ -14,6 +15,7 @@ import { BookService } from '../../services/book.service';
 export class MyPublicationsComponent implements OnInit {
   books: Book[] = [];
   editingBook?: Book;
+  categories = BOOK_CATEGORIES;
   photoPreview?: string;
   errorMessage = '';
 

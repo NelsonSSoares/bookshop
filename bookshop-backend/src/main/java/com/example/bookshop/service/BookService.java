@@ -4,9 +4,13 @@ import com.example.bookshop.model.Book;
 import com.example.bookshop.model.LibraryUser;
 import com.example.bookshop.repository.BookRepository;
 import com.example.bookshop.repository.LibraryUserRepository;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,7 +24,7 @@ public class BookService {
         this.libraryUserRepository = libraryUserRepository;
     }
 
-    public Book createBook(String username, String title, String author, String description, Double price, String photo) {
+    public Book createBook(String username, String title, String author, String description, Double price, String category, String photo) {
         LibraryUser publisher = libraryUserRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
 
@@ -29,6 +33,7 @@ public class BookService {
         newBook.setAuthor(author);
         newBook.setDescription(description);
         newBook.setPrice(price);
+        newBook.setCategory(category);
         newBook.setPhoto(photo);
         newBook.setPublisher(publisher);
 
@@ -39,6 +44,33 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public List<Book> searchBooks(String title, String category, String sort) {
+        Specification<Book> specification = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (title != null && !title.isBlank()) {
+                predicates.add(criteriaBuilder.like(
+                        criteriaBuilder.lower(root.get("title")),
+                        "%" + title.toLowerCase() + "%"));
+            }
+
+            if (category != null && !category.isBlank()) {
+                predicates.add(criteriaBuilder.equal(root.get("category"), category));
+            }
+
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
+
+        Sort sortOrder = Sort.unsorted();
+        if ("priceAsc".equalsIgnoreCase(sort)) {
+            sortOrder = Sort.by(Sort.Direction.ASC, "price");
+        } else if ("priceDesc".equalsIgnoreCase(sort)) {
+            sortOrder = Sort.by(Sort.Direction.DESC, "price");
+        }
+
+        return bookRepository.findAll(specification, sortOrder);
+    }
+
     public List<Book> getBooksByPublisher(String username) {
         LibraryUser publisher = libraryUserRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
@@ -46,7 +78,7 @@ public class BookService {
         return bookRepository.findByPublisher(publisher);
     }
 
-    public Book updateBook(String username, Long bookId, String title, String author, String description, Double price, String photo) {
+    public Book updateBook(String username, Long bookId, String title, String author, String description, Double price, String category, String photo) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException("Book not found: " + bookId));
 
@@ -58,6 +90,7 @@ public class BookService {
         book.setAuthor(author);
         book.setDescription(description);
         book.setPrice(price);
+        book.setCategory(category);
         book.setPhoto(photo);
 
         return bookRepository.save(book);

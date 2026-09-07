@@ -18,6 +18,12 @@
     <label for="edit-price">Price</label>
     <input id="edit-price" [(ngModel)]="editingBook.price" name="edit-price" type="number" placeholder="Price" required />
 
+    <label for="edit-category">Category</label>
+    <select id="edit-category" [(ngModel)]="editingBook.category" name="edit-category" required>
+      <option value="" disabled>Select a category</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+
     <label for="edit-photo">Book photo</label>
     <input id="edit-photo" type="file" accept="image/*" (change)="onEditPhotoSelected($event)" />
 
@@ -36,6 +42,7 @@
     <div class="book-info">
       <h3>{{ book.title }}</h3>
       <p class="author">by {{ book.author }}</p>
+      <p class="category">Category: {{ book.category }}</p>
       <p class="description">{{ book.description }}</p>
       <p class="price">{{ book.price | currency }}</p>
       <div class="actions">

@@ -1,5 +1,29 @@
 <h2>Books</h2>
 
+<div class="filters">
+  <input
+    type="text"
+    placeholder="Search by title"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchTermChange($event)"
+    aria-label="Search by title" />
+
+  <select
+    [ngModel]="filters.category || ''"
+    (ngModelChange)="onCategoryChange($event)"
+    aria-label="Filter by category">
+    <option value="">All categories</option>
+    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+  </select>
+
+  <select
+    [ngModel]="filters.sort || ''"
+    (ngModelChange)="onSortChange($event)"
+    aria-label="Sort by price">
+    <option *ngFor="let option of sortOptions" [value]="option.value">{{ option.label }}</option>
+  </select>
+</div>
+
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
 <ul class="book-list">
@@ -8,6 +32,7 @@
     <div class="book-info">
       <h3>{{ book.title }}</h3>
       <p class="author">by {{ book.author }}</p>
+      <p class="category">Category: {{ book.category }}</p>
       <p class="description">{{ book.description }}</p>
       <p class="price">{{ book.price | currency }}</p>
       <div class="actions" *ngIf="isLoggedIn$ | async">

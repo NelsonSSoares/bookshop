@@ -21,8 +21,11 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() {
-        List<Book> books = bookService.getAllBooks();
+    public ResponseEntity<List<Book>> getAllBooks(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String sort) {
+        List<Book> books = bookService.searchBooks(name, category, sort);
         return ResponseEntity.ok(books);
     }
 
@@ -40,6 +43,7 @@ public class BookController {
                 postBookRequest.author(),
                 postBookRequest.description(),
                 postBookRequest.price(),
+                postBookRequest.category(),
                 postBookRequest.photo());
 
         return ResponseEntity.ok(createdBook);
@@ -54,6 +58,7 @@ public class BookController {
                 updateBookRequest.author(),
                 updateBookRequest.description(),
                 updateBookRequest.price(),
+                updateBookRequest.category(),
                 updateBookRequest.photo());
 
         return ResponseEntity.ok(updatedBook);
@@ -70,9 +75,9 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
-    public record PostBookRequest(String title, String author, String description, Double price, String photo) {
+    public record PostBookRequest(String title, String author, String description, Double price, String category, String photo) {
     }
 
-    public record UpdateBookRequest(String title, String author, String description, Double price, String photo) {
+    public record UpdateBookRequest(String title, String author, String description, Double price, String category, String photo) {
     }
 }

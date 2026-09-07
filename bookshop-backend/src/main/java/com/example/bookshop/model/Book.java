@@ -22,6 +22,9 @@ public class Book {
     @Column(nullable = false)
     private Double price;
 
+    @Column(nullable = false)
+    private String category;
+
     @Column(length = 10000000)
     private String photo;
 
@@ -67,6 +70,14 @@ public class Book {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getPhoto() {

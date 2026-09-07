@@ -1,23 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { Observable, Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Book } from '../../models/book.model';
 import { AuthService } from '../../services/auth.service';
-import { BookService } from '../../services/book.service';
+import { BookSearchFilters, BookService } from '../../services/book.service';
 import { FavoriteService } from '../../services/favorite.service';
 import { PurchaseService } from '../../services/purchase.service';
+import { BOOK_CATEGORIES } from '../../constants/book-categories.constant';
 
 @Component({
   selector: 'app-book-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './book-list.component.html',
   styleUrl: './book-list.component.css'
 })
-export class BookListComponent implements OnInit {
+export class BookListComponent implements OnInit, OnDestroy {
   books: Book[] = [];
   isLoggedIn$: Observable<boolean>;
   errorMessage = '';
+
+  filters: BookSearchFilters = {};
+  searchTerm = '';
+  categories = BOOK_CATEGORIES;
+  sortOptions = [
+    { value: '', label: 'Default' },
+    { value: 'priceAsc', label: 'Price: Low to High' },
+    { value: 'priceDesc', label: 'Price: High to Low' }
+  ];
+
+  private readonly searchTermSubject = new Subject<string>();
+  private readonly searchSubscription: Subscription;
 
   constructor(
     private readonly bookService: BookService,
@@ -26,17 +40,43 @@ export class BookListComponent implements OnInit {
     private readonly authService: AuthService
   ) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.searchSubscription = this.searchTermSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(term => {
+      this.filters.name = term;
+      this.loadBooks();
+    });
   }
 
   ngOnInit(): void {
     this.loadBooks();
   }
 
+  ngOnDestroy(): void {
+    this.searchSubscription.unsubscribe();
+  }
+
   loadBooks(): void {
-    this.bookService.getAllBooks().subscribe({
+    this.bookService.getAllBooks(this.filters).subscribe({
       next: books => this.books = books,
       error: () => this.errorMessage = 'Failed to load books'
     });
+  }
+
+  onSearchTermChange(value: string): void {
+    this.searchTerm = value;
+    this.searchTermSubject.next(value);
+  }
+
+  onCategoryChange(category: string): void {
+    this.filters.category = category;
+    this.loadBooks();
+  }
+
+  onSortChange(sort: string): void {
+    this.filters.sort = sort as BookSearchFilters['sort'];
+    this.loadBooks();
   }
 
   addToFavorites(book: Book): void {
