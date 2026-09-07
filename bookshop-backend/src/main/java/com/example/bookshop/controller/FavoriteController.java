@@ -30,6 +30,12 @@ public class FavoriteController {
         return ResponseEntity.ok(favorites);
     }
 
+    @DeleteMapping("/{bookId}")
+    public ResponseEntity<Void> removeBookFromFavorites(@PathVariable Long bookId, Principal principal) {
+        favoriteService.removeBookFromFavorites(principal.getName(), bookId);
+        return ResponseEntity.ok().build();
+    }
+
     public record AddFavoriteRequest(Long bookId) {
     }
 }

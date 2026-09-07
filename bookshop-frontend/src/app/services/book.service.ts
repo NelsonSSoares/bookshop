@@ -15,7 +15,19 @@ export class BookService {
     return this.httpClient.get<Book[]>(this.apiUrl);
   }
 
+  getMyPublications(): Observable<Book[]> {
+    return this.httpClient.get<Book[]>(`${this.apiUrl}/my-publications`);
+  }
+
   postBook(book: Book): Observable<Book> {
     return this.httpClient.post<Book>(this.apiUrl, book);
+  }
+
+  updateBook(book: Book): Observable<Book> {
+    return this.httpClient.put<Book>(`${this.apiUrl}/${book.id}`, book);
+  }
+
+  deleteBook(bookId: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${bookId}`);
   }
 }

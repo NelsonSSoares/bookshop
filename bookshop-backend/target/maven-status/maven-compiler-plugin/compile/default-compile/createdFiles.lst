@@ -12,6 +12,7 @@ com\example\bookshop\controller\BookController.class
 com\example\bookshop\model\LibraryUser.class
 com\example\bookshop\model\Favorite.class
 com\example\bookshop\controller\AuthController.class
+com\example\bookshop\controller\BookController$UpdateBookRequest.class
 com\example\bookshop\service\AuthService.class
 com\example\bookshop\controller\AuthController$SignupRequest.class
 com\example\bookshop\repository\PurchaseRepository.class

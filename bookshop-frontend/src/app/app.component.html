@@ -1,10 +1,12 @@
 <nav>
   <a routerLink="/books" routerLinkActive="active">Books</a>
-  <a *ngIf="isLoggedIn$ | async" routerLink="/create-book" routerLinkActive="active">Create Book</a>
+  <a *ngIf="isLoggedIn$ | async" routerLink="/create-book" routerLinkActive="active">Publish a Book</a>
+  <a *ngIf="isLoggedIn$ | async" routerLink="/my-publications" routerLinkActive="active">My Publications</a>
   <a *ngIf="isLoggedIn$ | async" routerLink="/favorites" routerLinkActive="active">Favorites</a>
   <a *ngIf="isLoggedIn$ | async" routerLink="/purchases" routerLinkActive="active">Purchases</a>
   <a *ngIf="!(isLoggedIn$ | async); else loggedIn" routerLink="/login" routerLinkActive="active">Login</a>
   <ng-template #loggedIn>
+    <span *ngIf="username$ | async as username" class="logged-in-user">{{ username }}</span>
     <button type="button" (click)="logout()">Logout</button>
   </ng-template>
 </nav>

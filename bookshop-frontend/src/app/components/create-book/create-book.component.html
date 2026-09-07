@@ -1,5 +1,5 @@
 <div class="create-book-container">
-  <h2>Post a new book</h2>
+  <h2>Publish a Book</h2>
 
   <form (ngSubmit)="submitBook()">
     <label for="title">Title</label>
@@ -19,7 +19,7 @@
 
     <img *ngIf="photoPreview" [src]="photoPreview" class="photo-preview" [alt]="book.title" />
 
-    <button type="submit">Post Book</button>
+    <button type="submit">Publish Book</button>
   </form>
 
   <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>

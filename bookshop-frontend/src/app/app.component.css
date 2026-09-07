@@ -26,6 +26,12 @@ nav a.active {
   font-weight: 600;
 }
 
+.logged-in-user {
+  margin-left: auto;
+  font-weight: 600;
+  color: #2d3748;
+}
+
 main {
   padding: 1.5rem;
   max-width: 1200px;

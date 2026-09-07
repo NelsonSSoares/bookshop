@@ -26,4 +26,17 @@ export class FavoritesComponent implements OnInit {
       error: () => this.errorMessage = 'Failed to load favorites'
     });
   }
+
+  removeFromFavorites(favorite: Favorite): void {
+    if (!favorite.book.id) {
+      return;
+    }
+
+    this.favoriteService.removeBookFromFavorites(favorite.book.id).subscribe({
+      next: () => {
+        this.favorites = this.favorites.filter(item => item.id !== favorite.id);
+      },
+      error: () => this.errorMessage = 'Failed to remove from favorites'
+    });
+  }
 }

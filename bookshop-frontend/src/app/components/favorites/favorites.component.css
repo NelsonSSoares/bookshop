@@ -23,6 +23,21 @@
   color: #4a5568;
 }
 
+.unfavorite-button {
+  margin-top: 0.75rem;
+  background-color: #fed7d7;
+  color: #c53030;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.unfavorite-button:hover {
+  background-color: #feb2b2;
+}
+
 .error {
   color: #d32f2f;
 }

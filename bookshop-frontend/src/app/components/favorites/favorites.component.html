@@ -3,9 +3,10 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
 <ul class="favorite-list">
-  <li *ngFor="let favorite of favorites">
+  <li *ngFor="let favorite of favorites" class="favorite-card">
     <h3>{{ favorite.book.title }}</h3>
     <p>Author: {{ favorite.book.author }}</p>
     <p>Price: {{ favorite.book.price | currency }}</p>
+    <button type="button" class="unfavorite-button" (click)="removeFromFavorites(favorite)">Unfavorite</button>
   </li>
 </ul>

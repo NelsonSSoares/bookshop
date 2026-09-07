@@ -13,9 +13,11 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   isLoggedIn$: Observable<boolean>;
+  username$: Observable<string | null>;
 
   constructor(private readonly authService: AuthService) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.username$ = this.authService.username$;
   }
 
   logout(): void {

@@ -1,0 +1,47 @@
+<h2>My Publications</h2>
+
+<p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+<div *ngIf="editingBook" class="edit-book-container">
+  <h3>Edit Book</h3>
+
+  <form (ngSubmit)="submitUpdate()">
+    <label for="edit-title">Title</label>
+    <input id="edit-title" [(ngModel)]="editingBook.title" name="edit-title" placeholder="Title" required />
+
+    <label for="edit-author">Author</label>
+    <input id="edit-author" [(ngModel)]="editingBook.author" name="edit-author" placeholder="Author" required />
+
+    <label for="edit-description">Description</label>
+    <textarea id="edit-description" [(ngModel)]="editingBook.description" name="edit-description" placeholder="Description"></textarea>
+
+    <label for="edit-price">Price</label>
+    <input id="edit-price" [(ngModel)]="editingBook.price" name="edit-price" type="number" placeholder="Price" required />
+
+    <label for="edit-photo">Book photo</label>
+    <input id="edit-photo" type="file" accept="image/*" (change)="onEditPhotoSelected($event)" />
+
+    <img *ngIf="photoPreview" [src]="photoPreview" class="photo-preview" [alt]="editingBook.title" />
+
+    <div class="form-actions">
+      <button type="submit">Save Changes</button>
+      <button type="button" class="cancel-button" (click)="cancelEdit()">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<ul class="publication-list">
+  <li *ngFor="let book of books" class="book-card">
+    <img *ngIf="book.photo" [src]="book.photo" [alt]="book.title" class="book-photo" />
+    <div class="book-info">
+      <h3>{{ book.title }}</h3>
+      <p class="author">by {{ book.author }}</p>
+      <p class="description">{{ book.description }}</p>
+      <p class="price">{{ book.price | currency }}</p>
+      <div class="actions">
+        <button type="button" (click)="startEdit(book)">Edit</button>
+        <button type="button" class="delete-button" (click)="deleteBook(book)">Delete</button>
+      </div>
+    </div>
+  </li>
+</ul>

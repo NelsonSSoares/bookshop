@@ -25,6 +25,10 @@ public class Book {
     @Column(length = 10000000)
     private String photo;
 
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private LibraryUser publisher;
+
     public Long getId() {
         return id;
     }
@@ -71,5 +75,13 @@ public class Book {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public LibraryUser getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(LibraryUser publisher) {
+        this.publisher = publisher;
     }
 }

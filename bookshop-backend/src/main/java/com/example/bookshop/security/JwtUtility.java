@@ -25,6 +25,7 @@ public class JwtUtility {
 
         return Jwts.builder()
                 .subject(username)
+                .claim("name", username)
                 .issuedAt(issuedAt)
                 .expiration(expiration)
                 .signWith(getSigningKey(), Jwts.SIG.HS256)
